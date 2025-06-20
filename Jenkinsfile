@@ -14,7 +14,7 @@ pipeline {
   }
     stage("Checkout from Github"){
            steps {
-           Git branch: 'main', credentialsId: 'github', url: 'https://github.com/dilli7230/Demo2.git'
+           git branch: 'main', credentialsId: 'github', url: 'https://github.com/dilli7230/Demo2.git'
            }
     }
     
@@ -22,7 +22,7 @@ pipeline {
    
     stage("Checkout from Github"){
            steps {
-              Git branch: 'main', credentialsId: 'github', url: 'https://github.com/dilli7230/Demo2.git'
+              git branch: 'main', credentialsId: 'github', url: 'https://github.com/dilli7230/Demo2.git'
            }
     }
      stage("Build Application"){
