@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    ARTIFACTORY_URL = 'http://3.109.153.118:8080/artifactory'
+    ARTIFACTORY_URL = 'http://3.7.253.70:8082/artifactory/libs-release/'
     REPO_UPLOAD = 'libs-release-local'
     REPO_DOWNLOAD = 'libs-snapshot-local'
     GROUP_ID = 'com/devops/Demo2'
