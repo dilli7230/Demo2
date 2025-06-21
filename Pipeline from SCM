@@ -1,0 +1,30 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        sh '''
+          mvn clean package
+        '''
+      }
+    }
+
+    stage('Deploy to Artifactory') {
+      steps {
+        sh '''
+          # Variables
+          ARTIFACTORY_URL=http://3.109.153.118:8080/artifactory
+          REPO=libs-release-local
+          FILE=/var/lib/jenkins/workspace/Prj2_Demo2_buildtest/pom.xml
+          ARTIFACT_PATH=com.devops/Demo2/1.0-SNAPSHOT/Demo2-1.0-SNAPSHOT.war
+          USER=ciadmin
+          PASSWORD=Dillisup$12345
+
+          # Upload the artifact
+          curl -u $USER:$PASSWORD -T $FILE "$ARTIFACTORY_URL/$REPO/$ARTIFACT_PATH"
+        '''
+      }
+    }
+  }
+}
