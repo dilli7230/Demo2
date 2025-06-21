@@ -7,7 +7,7 @@ pipeline {
     REPO_DOWNLOAD = 'libs-snapshot-local'
     GROUP_ID = 'com/devops/Demo2'
     VERSION = '1.0.0'
-    ARTIFACT = 'SNAPSHOT-1.0.0.jar'
+    ARTIFACT = 'Demo2.war'
     DOWNLOAD_TARGET = './temp/'
   }
 
