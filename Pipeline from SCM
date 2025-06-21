@@ -5,7 +5,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
-          mvn clean package
+          mvn clean verify install
         '''
       }
     }
@@ -17,7 +17,7 @@ pipeline {
           ARTIFACTORY_URL=http://3.109.153.118:8080/artifactory
           REPO=libs-release-local
           FILE=/var/lib/jenkins/workspace/Prj2_Demo2_buildtest/pom.xml
-          ARTIFACT_PATH=com.devops/Demo2/1.0-SNAPSHOT/Demo2-1.0-SNAPSHOT.war
+          ARTIFACT_PATH=http://65.1.111.17:8082/ui/repos/tree/General/libs-release-local
           USER=ciadmin
           PASSWORD=Dillisup$12345
 
