@@ -1,6 +1,14 @@
 pipeline {
   agent any
 
+  environment {
+    ARTIFACTORY_URL = 'http://3.109.153.118:8080/artifactory'
+    REPO = 'libs-release-local'
+    GROUP_ID = 'readers'
+    VERSION = '1.0.0'
+    ARTIFACT = 'SNAPSHOT-1.0.0.jar'
+  }
+
   stages {
     stage('Build') {
       steps {
@@ -12,19 +20,17 @@ pipeline {
 
     stage('Deploy to Artifactory') {
       steps {
-        sh '''
-          # Variables
-          ARTIFACTORY_URL=http://3.109.153.118:8080/artifactory
-          REPO=libs-release-local
-          FILE=/var/lib/jenkins/workspace/Prj2_Demo2_buildtest/pom.xml
-          ARTIFACT_PATH=http://65.1.111.17:8082/ui/repos/tree/General/libs-release-local
-          USER=ciadmin
-          PASSWORD=Dillisup$12345
+        withCredentials([usernamePassword(credentialsId: 'artifactory-creds', usernameVariable: 'ciadmin', passwordVariable: 'Dillisup$12345')]) {
+          sh '''
+            FILE=target/${ARTIFACT}
+            TARGET_PATH=${ARTIFACTORY_URL}/${REPO}/${GROUP_ID//.//}/${VERSION}/${ARTIFACT}
 
-          # Upload the artifact
-          curl -u $USER:$PASSWORD -T $FILE "$ARTIFACTORY_URL/$REPO/$ARTIFACT_PATH"
-        '''
+            echo "Uploading $FILE to $TARGET_PATH"
+            curl -u $USER:$PASSWORD -T $FILE "$TARGET_PATH"
+          '''
+        }
       }
     }
   }
 }
+
