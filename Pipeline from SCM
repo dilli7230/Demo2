@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    ARTIFACTORY_URL = 'http://3.7.253.70:8082/artifactory/libs-release/'
+    ARTIFACTORY_URL = 'http://65.1.111.17:8082/artifactory/libs-release/'
     REPO_UPLOAD = 'libs-release-local'
     REPO_DOWNLOAD = 'libs-snapshot-local'
     GROUP_ID = 'com/devops/Demo2'
@@ -20,7 +20,7 @@ pipeline {
 
     stage('Deploy to Artifactory') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'artifactory-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'artifactory-creds', usernameVariable: 'hcltech', passwordVariable: 'hcltech@123')]) {
           sh '''
             FILE=target/${ARTIFACT}
             TARGET_PATH=${ARTIFACTORY_URL}/${REPO_UPLOAD}/${GROUP_ID//.//}/${VERSION}/${ARTIFACT}
@@ -51,7 +51,7 @@ pipeline {
 
     stage('Download from Artifactory') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'artifactory-creds', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'artifactory-creds', usernameVariable: 'hcltech', passwordVariable: 'hcltech@123')]) {
           sh '''
             jfrog rt config --url=$ARTIFACTORY_URL --user=$USER --password=$PASSWORD --interactive=false
             jfrog rt download --spec=downloadSpec.json
