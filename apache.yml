@@ -19,3 +19,20 @@
         src: index.html
         dest: /var/www/html/
         mode: '0644'
+    - name: Re-create docker container for tomcat
+      docker_container:
+        name: my-tomcat-container
+        image: tomcat
+        state: present
+        recreate: yes
+        published_ports:
+          - "8686:8080"
+
+    - name: Re-start the docker container
+      docker_container:
+        name: my-tomcat-container
+        state: started
+        restart: yes
+
+    - name: copy war file to docker tomcat server
+      shell: docker cp /var/lib/jenkins/workspace/Prj4_Demo2_ansidock/Demo2.war my-tomcat-container:/usr/local/tomcat/webapps/
