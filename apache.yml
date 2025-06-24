@@ -35,4 +35,4 @@
         restart: yes
 
     - name: copy war file to docker tomcat server
-      shell: docker cp /var/lib/jenkins/workspace/Prj4_Demo2_ansidock/Demo2.war my-tomcat-container:/usr/local/tomcat/webapps/
+      shell: docker cp /var/lib/jenkins/workspace/Prj3_Demo2_jfrogtomcat_deploy/Demo2-latest.war my-tomcat-container:/usr/local/tomcat/webapps/
