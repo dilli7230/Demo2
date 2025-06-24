@@ -1,17 +1,21 @@
 ---
 - hosts: webservers
-  become: True
+  become: true
   tasks:
-    - name: Install packages
-      yum:
-        name: "httpd"
-        state: "present"
-    - name: start Apache server
+    - name: Install Apache2 on Ubuntu
+      apt:
+        name: apache2
+        state: present
+        update_cache: true
+
+    - name: Start and enable Apache2 service
       service:
-         name: httpd
-         state: started
-         enabled: True
-    - name: Deploy Static website
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: Deploy static website
       copy:
-         src: index.html
-         dest: /var/www/html/
+        src: index.html
+        dest: /var/www/html/
+        mode: '0644'
